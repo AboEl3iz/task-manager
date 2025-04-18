@@ -1,98 +1,145 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+Unfortunately, I cannot directly edit or push changes to your repository files. However, I can provide you with the completed content so that you can copy and paste it into your README file. Below is the assembled README content, including all required sections and details:
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+---
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+# Task Manager
 
 ## Description
+Task Manager is a project built using TypeScript and NestJS to manage tasks and their lifecycle. It includes user authentication, task assignment, and progress tracking. The system also provides functionalities to export task data into an Excel sheet.
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+---
 
-## Project setup
+## Features
+- User registration and authentication using JWT.
+- Task creation, updating, and deletion.
+- Dashboard metrics for task statuses (pending, in-progress, completed, overdue).
+- Export tasks and their details to an Excel sheet.
+- Role-based access control (admin and member roles).
 
-```bash
-$ npm install
+---
+
+## Endpoints Summary
+
+### Authentication
+1. **POST `/auth/register`**
+   - **Description:** Register a new user.
+   - **Access:** Public.
+
+2. **POST `/auth/login`**
+   - **Description:** Log in and retrieve a JWT token.
+   - **Access:** Public.
+
+---
+
+### Tasks
+1. **POST `/tasks`**
+   - **Description:** Create a new task.
+   - **Access:** Authenticated users.
+
+2. **GET `/tasks`**
+   - **Description:** Retrieve all tasks.
+   - **Access:** Authenticated users.
+
+3. **GET `/tasks/:id`**
+   - **Description:** Retrieve task details by ID.
+   - **Access:** Task creator or assignee.
+
+4. **PUT `/tasks/:id`**
+   - **Description:** Update a task's details.
+   - **Access:** Task creator or assignee.
+
+5. **DELETE `/tasks/:id`**
+   - **Description:** Delete a task.
+   - **Access:** Task creator or admin.
+
+6. **GET `/tasks/dashboard`**
+   - **Description:** Retrieve overall task metrics.
+   - **Access:** Authenticated users.
+
+---
+
+### Todos
+1. **POST `/tasks/:taskId/todos`**
+   - **Description:** Add a new todo under a task.
+   - **Access:** Task creator or assignee.
+
+2. **PUT `/tasks/:taskId/todos/:todoId`**
+   - **Description:** Update the status of a todo.
+   - **Access:** Task creator or assignee.
+
+---
+
+### Excel Export
+1. **GET `/tasks/export`**
+   - **Description:** Export all task details to an Excel sheet.
+   - **Access:** Admin.
+
+---
+
+## Authentication & Authorization
+
+1. **JWT Authentication**
+   - Endpoints are secured using JWT tokens.
+   - Tokens are generated upon login and verified using a secret key.
+
+2. **Role-based Access Control**
+   - Admin: Can create, update, delete any tasks, and export task data.
+   - Member: Can manage their tasks and assigned tasks.
+
+3. **Authorization Guard**
+   - Validates the token and attaches user details to the request.
+
+---
+
+## Excel Export Functionality
+The `exportTasksToExcel` method generates a detailed Excel sheet with the following columns:
+- Task ID
+- Description
+- Status
+- Priority
+- Due Date
+- Progress (%)
+- Created By
+- Assigned To
+- Checklist Completion
+
+This report is dynamically generated by fetching task data and formatting it into an Excel worksheet.
+
+---
+
+## Database Schema
+The database management system (DBMS) used is **PostgreSQL**, and the Object Relational Mapper (ORM) is **TypeORM**. Below is the database schema diagram:
+
+![Database Schema](./path/to/database-schema.png)
+
+---
+
+## Project Flow Diagram
+```plaintext
++-----------------+       +-------------------+       +-------------------+
+| User Registers  +----->| User Authenticates+-----> | Task Management   |
+| or Logs In      |       | (JWT Token)       |       | (Create, Update, |
++-----------------+       +-------------------+       | Delete Tasks)     |
+                                                       +-------------------+
+                                                              |
+                                                              v
+                                                +--------------------------+
+                                                | Dashboard Metrics        |
+                                                | (Task Stats & Progress)  |
+                                                +--------------------------+
+                                                              |
+                                                              v
+                                                +--------------------------+
+                                                | Export to Excel          |
+                                                +--------------------------+
 ```
 
-## Compile and run the project
+---
 
-```bash
-# development
-$ npm run start
+To add this content to your repository:
+1. Copy the above content.
+2. Open the `README.md` file in your repository.
+3. Paste the content into the file and save it.
+4. Commit the changes to your repository.
 
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
-```
-
-## Run tests
-
-```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
-```
-
-## Deployment
-
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
-
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
-
-```bash
-$ npm install -g mau
-$ mau deploy
-```
-
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
-
-## Resources
-
-Check out a few resources that may come in handy when working with NestJS:
-
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+Let me know if you have any additional requests!
