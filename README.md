@@ -93,7 +93,7 @@ The `exportTasksToExcel` method generates a detailed Excel sheet with the follow
 ## Database Schema
 The database management system (DBMS) used is **PostgreSQL**, and the Object Relational Mapper (ORM) is **TypeORM**. Below is the database schema diagram:
 
-![Database Schema](./path/to/database-schema.png)
+![Database Schema](./database-schema.png)
 
 ---
 
