@@ -1,109 +1,117 @@
+# 📝 Task Manager
 
-# Task Manager
-
-## Description
-Task Manager is a project built using TypeScript and NestJS to manage tasks and their lifecycle. It includes user authentication, task assignment, and progress tracking. The system also provides functionalities to export task data into an Excel sheet.
-
----
-
-## Features
-- User registration and authentication using JWT.
-- Task creation, updating, and deletion.
-- Dashboard metrics for task statuses (pending, in-progress, completed, overdue).
-- Export tasks and their details to an Excel sheet.
-- Role-based access control (admin and member roles).
+## 📌 Description
+Task Manager is a project built with **TypeScript** and **NestJS** to manage tasks and their lifecycle. It includes:
+- User authentication
+- Task assignment
+- Progress tracking
+- Excel export support
 
 ---
 
-## Endpoints Summary
-
-### Authentication
-| Method | Endpoint           | Description                  | Access         |
-|--------|---------------------|------------------------------|----------------|
-| POST   | `/auth/register`    | Register a new user          | Public         |
-| POST   | `/auth/login`       | Log in and retrieve a JWT    | Public         |
-
----
-
-### Tasks
-| Method | Endpoint             | Description                   | Access                  |
-|--------|-----------------------|-------------------------------|-------------------------|
-| POST   | `/tasks`             | Create a new task             | Authenticated users     |
-| GET    | `/tasks`             | Retrieve all tasks            | Authenticated users     |
-| GET    | `/tasks/:id`         | Retrieve task details by ID   | Task creator or assignee|
-| PUT    | `/tasks/:id`         | Update a task's details       | Task creator or assignee|
-| DELETE | `/tasks/:id`         | Delete a task                 | Task creator or admin   |
-| GET    | `/tasks/dashboard`   | Retrieve task metrics         | Authenticated users     |
+## 🚀 Features
+- 🔐 User registration & login with JWT authentication
+- ✅ Create, update, delete tasks
+- 📊 Dashboard metrics for task statuses (Pending, In Progress, Completed, Overdue)
+- 📥 Export tasks to Excel
+- 👥 Role-based access (Admin & Member)
 
 ---
 
-### Todos
-| Method | Endpoint                           | Description                     | Access                  |
-|--------|-------------------------------------|---------------------------------|-------------------------|
-| POST   | `/tasks/:taskId/todos`             | Add a new todo to a task        | Task creator or assignee|
-| PUT    | `/tasks/:taskId/todos/:todoId`     | Update the status of a todo     | Task creator or assignee|
+## 📡 API Endpoints
+
+### 🔐 Authentication
+| Method | Endpoint         | Description               | Access  |
+|--------|------------------|---------------------------|---------|
+| POST   | `/auth/register` | Register a new user       | Public  |
+| POST   | `/auth/login`    | Log in & get JWT          | Public  |
 
 ---
 
-### Excel Export
-| Method | Endpoint        | Description                       | Access |
-|--------|------------------|-----------------------------------|--------|
-| GET    | `/tasks/export` | Export all task details to Excel  | Admin  |
+### 📋 Tasks
+| Method | Endpoint             | Description                 | Access                    |
+|--------|----------------------|-----------------------------|---------------------------|
+| POST   | `/tasks`             | Create a new task           | Authenticated users       |
+| GET    | `/tasks`             | Retrieve all tasks          | Authenticated users       |
+| GET    | `/tasks/:id`         | Get task by ID              | Task creator or assignee  |
+| PUT    | `/tasks/:id`         | Update task                 | Task creator or assignee  |
+| DELETE | `/tasks/:id`         | Delete task                 | Task creator or admin     |
+| GET    | `/tasks/dashboard`   | Get task metrics            | Authenticated users       |
 
 ---
 
-## Authentication & Authorization
-
-1. **JWT Authentication**
-   - Endpoints are secured using JWT tokens.
-   - Tokens are generated upon login and verified using a secret key.
-
-2. **Role-based Access Control**
-   - **Admin:** Can create, update, delete tasks, and export task data.
-   - **Member:** Can manage their tasks and assigned tasks.
-
-3. **Authorization Guard**
-   - Validates the token and attaches user details to the request.
+### 🧾 Todos
+| Method | Endpoint                            | Description             | Access                   |
+|--------|-------------------------------------|-------------------------|--------------------------|
+| POST   | `/tasks/:taskId/todos`              | Add a todo to a task    | Task creator or assignee |
+| PUT    | `/tasks/:taskId/todos/:todoId`      | Update a todo's status  | Task creator or assignee |
 
 ---
 
-## Excel Export Functionality
+### 📤 Excel Export
+| Method | Endpoint         | Description                   | Access |
+|--------|------------------|-------------------------------|--------|
+| GET    | `/tasks/export`  | Export tasks to Excel         | Admin  |
 
-The `exportTasksToExcel` method generates a detailed Excel sheet with the following structure:
+---
+
+## 🛡️ Authentication & Authorization
+
+### 🔑 JWT Authentication
+- Tokens generated on login
+- Verified via a secret key
+
+### 🎭 Role-Based Access
+- 👑 **Admin**: Full access, including export
+- 🙋 **Member**: Can manage their own tasks
+
+### 🧰 Authorization Guard
+- Verifies JWT & injects user into request
+
+---
+
+## 📈 Excel Export Structure
 
 | Task ID | Description               | Status      | Priority | Due Date   | Progress (%) | Created By   | Assigned To         | Checklist Completion |
 |---------|---------------------------|-------------|----------|------------|--------------|--------------|---------------------|----------------------|
-| 1       | Complete project docs     | In Progress | High     | 2025-04-20 | 50%          | John Doe     | Jane Smith, Mike D. | 2/4 done            |
-| 2       | Prepare presentation      | Completed   | Medium   | 2025-04-15 | 100%         | Alice Brown  | Bob White           | 5/5 done            |
-| 3       | Update software versions  | Pending     | Low      | 2025-04-25 | 0%           | Charlie Lee  | None                | 0/3 done            |
+| 1       | Complete project docs     | In Progress | High     | 2025-04-20 | 50%          | John Doe     | Jane Smith, Mike D. | 2/4 done             |
+| 2       | Prepare presentation      | Completed   | Medium   | 2025-04-15 | 100%         | Alice Brown  | Bob White           | 5/5 done             |
+| 3       | Update software versions  | Pending     | Low      | 2025-04-25 | 0%           | Charlie Lee  | None                | 0/3 done             |
 
-**Column Descriptions:**
-- **Task ID:** Unique identifier of the task.
-- **Description:** Task description provided during creation.
-- **Status:** Current status of the task (e.g., pending, in-progress, completed).
-- **Priority:** Task priority (e.g., high, medium, low).
-- **Due Date:** Deadline for completing the task (formatted as YYYY-MM-DD).
-- **Progress (%):** Task progress as a percentage.
-- **Created By:** Name of the user who created the task.
-- **Assigned To:** Names of users assigned to the task (comma-separated).
-- **Checklist Completion:** Progress of the task's checklist (e.g., 3/5 done).
+🔍 **Column Descriptions**
+- **Task ID**: Unique identifier  
+- **Description**: Task content  
+- **Status**: Current state  
+- **Priority**: Importance level  
+- **Due Date**: Deadline  
+- **Progress**: Completion %  
+- **Created By**: Task creator  
+- **Assigned To**: Users assigned  
+- **Checklist**: Progress of subtasks
 
 ---
 
-## Database Schema
-The database management system (DBMS) used is **PostgreSQL**, and the Object Relational Mapper (ORM) is **TypeORM**. Below is the database schema diagram:
+## 🗄️ Database Schema
 
+- DB: **PostgreSQL**
+- ORM: **TypeORM**
+
+📷 **Diagram:**
 ![Database Schema](./database-schema.png)
 
 ---
 
-## Project Flow Diagram
+## 🔄 Project Flow Diagram
+
 ```mermaid
-flowchart LR
-    A[User Registers or Logs In] --> B[User Authenticates JWT Token]
-    B --> C[Task Management Create, Update, Delete Tasks]
-    C --> D[Dashboard Metrics Task Stats & Progress]
-    D --> E[Export to Excel]
+flowchart TD
+    A["User Registers or Logs In"]
+    B["User Authenticates (JWT Token)"]
+    C["Task Management (Create, Update, Delete)"]
+    D["Dashboard Metrics (Task Stats & Progress)"]
+    E["Export to Excel"]
+
+    A --> B --> C --> D --> E
+
 
 ```
-
