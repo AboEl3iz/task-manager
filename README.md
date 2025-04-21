@@ -98,22 +98,12 @@ The database management system (DBMS) used is **PostgreSQL**, and the Object Rel
 ---
 
 ## Project Flow Diagram
-```plaintext
-+-----------------+       +-------------------+       +-------------------+
-| User Registers  +----->| User Authenticates+-----> | Task Management   |
-| or Logs In      |       | (JWT Token)       |       | (Create, Update, |
-+-----------------+       +-------------------+       | Delete Tasks)     |
-                                                       +-------------------+
-                                                              |
-                                                              v
-                                                +--------------------------+
-                                                | Dashboard Metrics        |
-                                                | (Task Stats & Progress)  |
-                                                +--------------------------+
-                                                              |
-                                                              v
-                                                +--------------------------+
-                                                | Export to Excel          |
-                                                +--------------------------+
+```mermaid
+flowchart LR
+    A[User Registers or Logs In] --> B[User Authenticates JWT Token]
+    B --> C[Task Management Create, Update, Delete Tasks]
+    C --> D[Dashboard Metrics Task Stats & Progress]
+    D --> E[Export to Excel]
+
 ```
 
