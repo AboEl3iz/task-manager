@@ -13,22 +13,23 @@ import { TodoModule } from './tasks/todo/todo.module';
 
 
 @Module({
-  imports: [ConfigModule.forRoot(),
+  imports: [ConfigModule.forRoot({
+    isGlobal: true,
+    envFilePath: '.env',
+  }),
     AuthModule,
     UserModule,
     TaskModule,
     TodoModule,
     TypeOrmModule.forRoot({
-      logging: ["query", "error"],
       type: 'postgres',
       host: process.env.POSTGRES_HOST,
-      port: Number(process.env.POSTGRES_PORT),
-      username: process.env.POSTGRES_USER,
-      password: process.env.POSTGRES_PASSWORD,
-      database: process.env.POSTGRES_DB,
-      autoLoadEntities: true,
-      synchronize: true,
-      entities:[Auth,Task,Todo]
+      port: parseInt(process.env.POSTGRES_PORT || '5432'),
+      username: process.env.POSTGRES_USER || 'postgres',
+      password: process.env.POSTGRES_PASSWORD || '2832003',
+      database: process.env.POSTGRES_DB || 'nestdb',
+      entities: [Auth, Task, Todo],
+      synchronize: true, // Set to false in production
     }),
     
   ],
