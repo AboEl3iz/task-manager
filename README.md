@@ -15,6 +15,7 @@ Task Manager is a project built with **TypeScript** and **NestJS** to manage tas
 - 📊 Dashboard metrics for task statuses (Pending, In Progress, Completed, Overdue)
 - 📥 Export tasks to Excel
 - 👥 Role-based access (Admin & Member)
+- 🐳 Fully Dockerized using Docker & Docker Compose
 
 ---
 
