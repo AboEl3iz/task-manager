@@ -15,6 +15,7 @@ Task Manager is a project built with **TypeScript** and **NestJS** to manage tas
 - 📊 Dashboard metrics for task statuses (Pending, In Progress, Completed, Overdue)
 - 📥 Export tasks to Excel
 - 👥 Role-based access (Admin & Member)
+- 🐳 Fully Dockerized using Docker & Docker Compose
 
 ---
 
@@ -94,4 +95,24 @@ Task Manager is a project built with **TypeScript** and **NestJS** to manage tas
 ## 🗄️ Database Schema
 
 - DB: **PostgreSQL**
-- ORM
+- ORM: **TypeORM**
+
+📷 **Diagram:**
+![Database Schema](./database-schema.png)
+
+---
+
+## 🔄 Project Flow Diagram
+
+```mermaid
+flowchart TD
+    A["User Registers or Logs In"]
+    B["User Authenticates (JWT Token)"]
+    C["Task Management (Create, Update, Delete)"]
+    D["Dashboard Metrics (Task Stats & Progress)"]
+    E["Export to Excel"]
+
+    A --> B --> C --> D --> E
+
+
+```
